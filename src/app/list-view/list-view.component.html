@@ -1,0 +1,19 @@
+<p>list-view works!</p>
+<table>
+    <thead>
+        <th>Checkbox</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Action</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of usersList">
+            <td>Checkbox {{user.id}}</td>
+            <td>{{user.name}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.role}}</td>
+            <td>Buttons</td>
+        </tr>
+    </tbody>
+</table>
