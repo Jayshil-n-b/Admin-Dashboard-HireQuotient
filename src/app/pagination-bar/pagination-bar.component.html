@@ -1,0 +1,55 @@
+<div class="flex flex-col lg:flex-row justify-between mb-5 mx-5">
+    <div class="flex flex-col lg:flex-row items-center space-x-2 text-l">
+        <p *ngIf="totalPages>0" class="text-gray-500 mt-4 lg:mt-0">Showing {{entryStart}} to {{entryEnd}} of
+            {{totalUsers}} entires
+        </p>
+    </div>
+    <nav *ngIf="totalPages>0" aria-label="Pagination"
+        class="flex justify-center items-center text-gray-600 mt-8 lg:mt-0">
+        <button title="prev-icon" (click)="emitPageNumber(previousPageNumber)" *ngIf="usersCurrentPage>1"
+            class="px-4 py-2 rounded hover:bg-gray-100">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
+        <button (click)="emitPageNumber(1)" *ngIf="previousPreviousPageNumber===1"
+            class="px-4 py-2 rounded hover:bg-gray-100">
+            {{1}}
+        </button>
+        <button (click)="emitPageNumber(1)" *ngIf="previousPreviousPageNumber>1"
+            class="px-4 py-2 rounded hover:bg-gray-100">
+            {{1}}
+        </button>
+        <button disabled *ngIf="previousPreviousPageNumber>1" class="px-4 py-2 rounded hover:bg-gray-100">
+            ...
+        </button>
+        <button (click)="emitPageNumber(1)" *ngIf="usersCurrentPage>1" class="px-4 py-2 rounded hover:bg-gray-100">
+            {{previousPageNumber}}
+        </button>
+        <button *ngIf="totalPages>0" class="px-4 py-2 rounded bg-gray-200 text-gray-900 font-medium hover:bg-gray-100">
+            {{usersCurrentPage}} </button>
+        <button (click)="emitPageNumber(nextPageNumber)" *ngIf="usersCurrentPage<totalPages"
+            class="px-4 py-2 rounded hover:bg-gray-100">
+            {{nextPageNumber}}
+        </button>
+        <button disabled *ngIf="nextNextPageNumber<totalPages" class="px-4 py-2 rounded hover:bg-gray-100">
+            ...
+        </button>
+        <button (click)="emitPageNumber(totalPages)" *ngIf="nextNextPageNumber<totalPages"
+            class="px-4 py-2 rounded hover:bg-gray-100">
+            {{totalPages}}
+        </button>
+        <button (click)="emitPageNumber(nextNextPageNumber)" *ngIf="nextNextPageNumber===totalPages"
+            class="px-4 py-2 rounded hover:bg-gray-100">
+            {{nextNextPageNumber}}
+        </button>
+        <button title="next-icon" (click)="emitPageNumber(nextPageNumber)" *ngIf="usersCurrentPage<totalPages"
+            class="px-4 py-2 rounded hover:bg-gray-100">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+        </button>
+    </nav>
+</div>

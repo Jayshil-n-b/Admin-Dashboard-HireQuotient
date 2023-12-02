@@ -6,11 +6,18 @@ import { Subscription } from 'rxjs';
 import { ApiService } from './services/api.service';
 import { user } from './user';
 import { ListViewComponent } from './list-view/list-view.component';
+import { PaginationBarComponent } from './pagination-bar/pagination-bar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, SearchBarComponent, ListViewComponent],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    SearchBarComponent,
+    ListViewComponent,
+    PaginationBarComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -20,9 +27,11 @@ export class AppComponent implements OnInit, OnDestroy {
   subscription!: Subscription;
   usersData: user[] | any = [];
   filteredData: user[] | any = [];
+  currentPage: number = 1;
 
   setSearchQuery(searchQuery: string) {
     this.searchQuery = searchQuery;
+    this.setCurrentPage(1);
     this.filteredData = this.usersData.filter((userData: user) => {
       if (
         userData.name.includes(searchQuery) ||
@@ -35,6 +44,11 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     });
     console.log(this.filteredData);
+  }
+
+  setCurrentPage(pageNumber: number) {
+    this.currentPage = pageNumber;
+    console.log(this.currentPage);
   }
 
   constructor(private apiService: ApiService) {}

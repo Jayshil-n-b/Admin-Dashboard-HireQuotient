@@ -1,5 +1,7 @@
-<p>list-view works!</p>
-<table>
+<div class="w-full flex text-center justify-center" *ngIf="showList.length===0">
+    No entries found.
+</div>
+<table class="text-left w-full" *ngIf="showList.length">
     <thead>
         <th>Checkbox</th>
         <th>Name</th>
@@ -8,12 +10,13 @@
         <th>Action</th>
     </thead>
     <tbody>
-        <tr *ngFor="let user of usersList">
+        <tr class="hover:border-2" *ngFor="let user of showList">
             <td>Checkbox {{user.id}}</td>
             <td>{{user.name}}</td>
             <td>{{user.email}}</td>
             <td>{{user.role}}</td>
-            <td>Buttons</td>
+            <td><button title="edit" type="button">Edit</button><button title="delete" type="button">Delete</button>
+            </td>
         </tr>
     </tbody>
 </table>
