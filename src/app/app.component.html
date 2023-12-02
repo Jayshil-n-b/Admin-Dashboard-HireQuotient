@@ -1,4 +1,5 @@
 <app-search-bar (searchQuerySetter)="setSearchQuery($event)"></app-search-bar>
-<app-list-view [pageNumber]="currentPage" [usersList]="filteredData"></app-list-view>
+<app-list-view (deleteEmitter)="deleteUser($event)" [pageNumber]="currentPage"
+    [usersList]="filteredData"></app-list-view>
 <app-pagination-bar (pageNumberSetter)="setCurrentPage($event)" [usersCurrentPage]="currentPage"
     [totalUsers]="filteredData.length"></app-pagination-bar>

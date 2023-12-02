@@ -1,18 +1,45 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { user } from '../user';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-list-view',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './list-view.component.html',
   styleUrl: './list-view.component.scss',
 })
 export class ListViewComponent implements OnChanges {
   @Input() usersList: user[] = [];
   @Input() pageNumber: number = 1;
+  @Output() deleteEmitter = new EventEmitter<string>();
   showList: user[] = [];
+  targetUser: string = '';
+  checkedMap = new Set();
+
+  deleteUser(id: string) {
+    this.deleteEmitter.emit(id);
+  }
+
+  editUser(id: string) {
+    this.targetUser = id;
+  }
+
+  saveUser(id: string) {
+    this.targetUser = '';
+  }
+
+  handleCheckbox(event: any, id: string) {
+    console.log(event.target.checked, id);
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['pageNumber'] || changes['usersList']) {

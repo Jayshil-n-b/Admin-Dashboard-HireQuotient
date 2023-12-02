@@ -1,0 +1,10 @@
+tr td {
+  padding: 6px;
+}
+
+tbody:before {
+  content: "@";
+  display: block;
+  line-height: 10px;
+  text-indent: -99999px;
+}
