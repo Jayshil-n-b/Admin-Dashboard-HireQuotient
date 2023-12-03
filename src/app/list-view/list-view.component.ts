@@ -20,10 +20,11 @@ import { FormsModule } from '@angular/forms';
 export class ListViewComponent implements OnChanges {
   @Input() usersList: user[] = [];
   @Input() pageNumber: number = 1;
+  @Input() checkedSet: Set<string> = new Set();
   @Output() deleteEmitter = new EventEmitter<string>();
+  @Output() changeCheckedSet = new EventEmitter();
   showList: user[] = [];
   targetUser: string = '';
-  checkedSet: Set<string> = new Set();
 
   deleteUser(id: string) {
     this.deleteEmitter.emit(id);
@@ -40,22 +41,26 @@ export class ListViewComponent implements OnChanges {
   handleCheckbox(event: any, id: string) {
     console.log(event.target.checked, id);
     if (id === '-') {
+      event.target.checked
+        ? this.checkedSet.add('-')
+        : this.checkedSet.delete('-');
       const entryStart = 10 * (this.pageNumber - 1);
       const entryEnd =
         Math.min(
           Number(entryStart) + Number(10),
           Number(this.usersList.length) + 1
         ) - 1;
-      for (let index = entryStart; index <= entryEnd + 1; index++) {
+      for (let index = entryStart; index <= entryEnd; index++) {
         event.target.checked
-          ? this.checkedSet.add(String(index))
-          : this.checkedSet.delete(String(index));
+          ? this.checkedSet.add(String(this.usersList[index].id))
+          : this.checkedSet.delete(String(this.usersList[index].id));
       }
     } else {
       event.target.checked
         ? this.checkedSet.add(id)
         : this.checkedSet.delete(id);
     }
+    this.changeCheckedSet.emit(this.checkedSet);
     console.log(this.checkedSet.size);
   }
 

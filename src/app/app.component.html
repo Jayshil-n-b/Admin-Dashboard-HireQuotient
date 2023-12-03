@@ -3,9 +3,11 @@
   (searchQuerySetter)="setSearchQuery($event)"
 ></app-search-bar>
 <app-list-view
+  (changeCheckedSet)="handleSetChange($event)"
   (deleteEmitter)="deleteUser($event)"
   [pageNumber]="currentPage"
   [usersList]="filteredData"
+  [checkedSet]="checkedSet"
 ></app-list-view>
 <app-pagination-bar
   (pageNumberSetter)="setCurrentPage($event)"

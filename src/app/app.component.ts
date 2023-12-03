@@ -28,9 +28,19 @@ export class AppComponent implements OnInit, OnDestroy {
   usersData: user[] | any = [];
   filteredData: user[] | any = [];
   currentPage: number = 1;
+  checkedSet: Set<string> = new Set<string>();
+
+  handleSetChange(newSet: Set<string>) {
+    this.checkedSet = newSet;
+    console.log(newSet);
+  }
 
   deleteSelectedUsers() {
-    console.log('Delete');
+    this.usersData = this.usersData.filter((userData: user) => {
+      return !this.checkedSet.has(userData.id);
+    });
+    this.checkedSet.clear();
+    this.setSearchQuery(this.searchQuery);
   }
 
   deleteUser(id: string) {

@@ -12,6 +12,7 @@
         class="w-4 h-4"
         title="checkbox for delete"
         type="checkbox"
+        [checked]="checkedSet.has('-')"
       />
     </th>
     <th>Name</th>
@@ -21,9 +22,9 @@
   </thead>
   <tbody>
     <tr
-      class="border-y-2"
+      class="border-y-2 hover:bg-gray-100"
       *ngFor="let user of showList"
-      [ngClass]="{ 'bg-green-100': targetUser === user.id }"
+      [ngClass]="{ 'bg-green-100 hover:bg-green-100': targetUser === user.id }"
     >
       <td>
         <input
