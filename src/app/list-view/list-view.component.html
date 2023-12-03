@@ -10,9 +10,10 @@
       <input
         (change)="handleCheckbox($event, '-')"
         class="w-4 h-4"
-        title="checkbox for delete"
+        title="checkbox for select/deselect all"
         type="checkbox"
-        [checked]="checkedSet.has('-')"
+        [checked]="checkedSet.size"
+        name="Select All/Deselect"
       />
     </th>
     <th>Name</th>
@@ -22,15 +23,19 @@
   </thead>
   <tbody>
     <tr
-      class="border-y-2 hover:bg-gray-100"
+      class="border-y-2"
       *ngFor="let user of showList"
-      [ngClass]="{ 'bg-green-100 hover:bg-green-100': targetUser === user.id }"
+      [ngClass]="{
+        'bg-gray-200': checkedSet.has(user.id) && targetUser !== user.id,
+        'bg-green-100 hover:bg-green-100': targetUser === user.id,
+        'hover:bg-gray-200': targetUser !== user.id,
+      }"
     >
       <td>
         <input
           (change)="handleCheckbox($event, user.id)"
           class="w-4 h-4"
-          title="checkbox for delete"
+          title="checkbox for select/deselect"
           type="checkbox"
           [checked]="checkedSet.has(user.id)"
           [ngClass]="{
@@ -68,7 +73,7 @@
       </td>
       <td>
         <input
-          class="bg-transparent"
+          class="bg-transparent text-center"
           disabled="{{ targetUser !== user.id }}"
           title="role"
           type="text"
@@ -83,7 +88,7 @@
       <td class="flex justify-evenly">
         <button
           *ngIf="targetUser !== user.id"
-          class="hover:bg-gray-300"
+          class="edit hover:bg-gray-300 rounded-md"
           (click)="editUser(user.id)"
           title="edit"
           type="button"
@@ -103,9 +108,9 @@
         </button>
         <button
           *ngIf="targetUser === user.id"
-          class="hover:bg-gray-300"
+          class="save hover:bg-gray-300 rounded-md"
           (click)="saveUser(user.id)"
-          title="edit"
+          title="save"
           type="button"
         >
           <svg
@@ -122,7 +127,7 @@
           </svg>
         </button>
         <button
-          class="hover:bg-gray-300"
+          class="delete hover:bg-gray-300 rounded-md"
           (click)="deleteUser(user.id)"
           title="delete"
           type="button"
