@@ -11,8 +11,13 @@ import { FormsModule } from '@angular/forms';
 export class SearchBarComponent {
   searchQuery: string = '';
   @Output() searchQuerySetter = new EventEmitter<string>();
+  @Output() deleteEventEmitter = new EventEmitter();
 
   emitSearchQuery() {
     this.searchQuerySetter.emit(this.searchQuery);
+  }
+
+  emitDelete() {
+    this.deleteEventEmitter.emit();
   }
 }

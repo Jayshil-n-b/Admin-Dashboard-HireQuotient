@@ -31,6 +31,10 @@
           class="w-4 h-4"
           title="checkbox for delete"
           type="checkbox"
+          [checked]="checkedSet.has(user.id)"
+          [ngClass]="{
+            'bg-white border-b-2 border-black': targetUser === user.id
+          }"
         />
       </td>
       <td>
@@ -42,6 +46,9 @@
           name=""
           id="`name-{{ user.id }}`"
           [(ngModel)]="user.name"
+          [ngClass]="{
+            'bg-white border-b-2 border-black': targetUser === user.id
+          }"
         />
       </td>
       <td>
@@ -53,6 +60,9 @@
           name=""
           id="`email-{{ user.id }}`"
           [(ngModel)]="user.email"
+          [ngClass]="{
+            'bg-white border-b-2 border-black': targetUser === user.id
+          }"
         />
       </td>
       <td>
@@ -64,6 +74,9 @@
           name=""
           id="`role-{{ user.id }}`"
           [(ngModel)]="user.role"
+          [ngClass]="{
+            'bg-white border-b-2 border-black': targetUser === user.id
+          }"
         />
       </td>
       <td class="flex justify-evenly">

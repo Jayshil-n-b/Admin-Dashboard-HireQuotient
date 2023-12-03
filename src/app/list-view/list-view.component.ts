@@ -23,7 +23,7 @@ export class ListViewComponent implements OnChanges {
   @Output() deleteEmitter = new EventEmitter<string>();
   showList: user[] = [];
   targetUser: string = '';
-  checkedMap = new Set();
+  checkedSet: Set<string> = new Set();
 
   deleteUser(id: string) {
     this.deleteEmitter.emit(id);
@@ -39,6 +39,24 @@ export class ListViewComponent implements OnChanges {
 
   handleCheckbox(event: any, id: string) {
     console.log(event.target.checked, id);
+    if (id === '-') {
+      const entryStart = 10 * (this.pageNumber - 1);
+      const entryEnd =
+        Math.min(
+          Number(entryStart) + Number(10),
+          Number(this.usersList.length) + 1
+        ) - 1;
+      for (let index = entryStart; index <= entryEnd + 1; index++) {
+        event.target.checked
+          ? this.checkedSet.add(String(index))
+          : this.checkedSet.delete(String(index));
+      }
+    } else {
+      event.target.checked
+        ? this.checkedSet.add(id)
+        : this.checkedSet.delete(id);
+    }
+    console.log(this.checkedSet.size);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
