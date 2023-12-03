@@ -41,13 +41,14 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   setSearchQuery(searchQuery: string) {
+    searchQuery = searchQuery.toLowerCase();
     this.searchQuery = searchQuery;
     this.setCurrentPage(1);
     this.filteredData = this.usersData.filter((userData: user) => {
       if (
-        userData.name.includes(searchQuery) ||
-        userData.email.includes(searchQuery) ||
-        userData.role.includes(searchQuery)
+        userData.name.toLowerCase().includes(searchQuery) ||
+        userData.email.toLowerCase().includes(searchQuery) ||
+        userData.role.toLowerCase().includes(searchQuery)
       ) {
         return true;
       } else {
