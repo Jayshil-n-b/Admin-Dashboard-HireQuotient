@@ -52,7 +52,7 @@
       ...
     </button>
     <button
-      (click)="emitPageNumber(1)"
+      (click)="emitPageNumber(previousPageNumber)"
       *ngIf="usersCurrentPage > 1"
       class="px-4 py-2 rounded hover:bg-gray-100"
     >
